@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nathoub</title>
+
+<style>
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: #f0f2f5;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Main popup */
+.popup {
+    background: white;
+    width: 400px;
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 10;
+}
+
+.popup img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.congrats-box img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin-bottom: 25px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+button {
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#yesBtn {
+    background: #b6287f;
+    color: white;
+}
+
+#yesBtn:hover {
+    transform: scale(1.8);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+#noBtn {
+    background: #f5685e;
+    color: white;
+    position: relative;
+}
+
+/* Congrats popup */
+.congrats {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 20;
+}
+
+.congrats-box {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+    from { transform: scale(0); }
+    to { transform: scale(1); }
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: red;
+    top: -10px;
+    animation: fall linear forwards;
+    z-index: 5;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Main Popup -->
+<div class="popup">
+
+    <img src="val.jpg" alt="Image">
+
+    <h3 style="margin-bottom: 40px;">Being with you feels like I found what my soul was searching for all along. And I'm grateful for that every single day.</h3>
+    
+    <h1 style="margin-bottom: 6px;" >Shaii,</h1>
+    <h1 style="margin-top: 6px;">Will You Be My Valentine?</h1>
+    <h1>💕❤️💕</h1>
+
+    <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+    </div>
+
+</div>
+
+
+<!-- Congrats Popup -->
+<div class="congrats" id="congrats">
+
+    <div class="congrats-box">
+
+        <img src="bretta-n-jonny-dancing.gif" alt="Image">
+        <h2>🎉 Congrats ❤️</h2>
+        <p>You made the right choice!</p>
+        <br>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const congrats = document.getElementById("congrats");
+
+
+/* Move NO button */
+noBtn.addEventListener("mouseover", moveButton);
+
+function moveButton() {
+
+    const maxX = window.innerWidth - noBtn.offsetWidth;
+    const maxY = window.innerHeight - noBtn.offsetHeight;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
+
+}
+
+
+/* YES button */
+yesBtn.addEventListener("click", () => {
+
+
+    // Show popup
+    congrats.style.display = "flex";
+
+    // Start celebration
+    startConfetti();
+
+});
+
+
+
+/* Confetti Effect */
+function startConfetti() {
+
+    for (let i = 0; i < 150; i++) {
+
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        // Random color
+        const colors = ["#ff0", "#f00", "#0f0", "#00f", "#ff69b4"];
+        confetti.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
+
+        // Random position
+        confetti.style.left = Math.random() * 100 + "vw";
+
+        // Random size
+        const size = Math.random() * 8 + 5;
+        confetti.style.width = size + "px";
+        confetti.style.height = size + "px";
+
+        // Random speed
+        const duration = Math.random() * 3 + 2;
+        confetti.style.animationDuration = duration + "s";
+
+        document.body.appendChild(confetti);
+
+        // Remove after animation
+        setTimeout(() => {
+            confetti.remove();
+        }, duration * 1000);
+    }
+
+}
+
+</script>
+
+</body>
+</html>
