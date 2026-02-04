@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fade Scroll Sections</title>
+
+<style>
+
+
+
+@font-face {
+  font-family: love-bubble; 
+  src: url(Love-Buble.otf); 
+}
+
+.love-bubble {
+  font-family: love-bubble; 
+}
+
+
+@font-face {
+  font-family: valentine-cute; 
+  src: url(Valentine-Cute.ttf); 
+}
+
+.valentine-cute {
+  font-family: valentine-cute; 
+}
+
+
+@font-face {
+  font-family: love-story; 
+  src: url(love-story.ttf); 
+}
+
+.love-story {
+  font-family: love-story; 
+}
+
+
+@font-face {
+  font-family: warning; 
+  src: url(WARNING.ttf); 
+}
+
+.warning {
+  font-family: warning; 
+}
+
+
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 400vh; /* Enough scroll space */
+}
+
+/* Fixed background */
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(135deg, #1f1c2c, #e24545);
+    z-index: -1;
+}
+
+/* Sections container */
+.container {
+    position: relative;
+}
+
+/* Section style */
+.section {
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 48px;
+    font-weight: bold;
+    color: white;
+
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+/* Visible state */
+.section.active {
+    opacity: 1;
+}
+
+
+/* Sticky photos container */
+.photos {
+
+    
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    z-index: 5;
+}
+
+.tl_photos {
+    position: fixed;
+    top: 20px;
+    left: -10px;
+}
+
+.bl_photos {
+    position: fixed;
+    bottom: -10px;
+    left: -10px;
+}
+
+.br_photos {
+    position: fixed;
+    bottom: -10px;
+    right: -10px;
+}
+
+.tr_photos {
+    position: fixed;
+    top: -10px;
+    right: -10px;
+}
+
+
+
+
+/* Individual photo */
+.photos img {
+    object-fit: cover;
+}
+
+
+/* Individual photo */
+.bl_img {
+    width: 90px;
+    height: 90px;
+    transform: scale(3) rotate(45deg);
+}
+
+.tl_img {
+    width: 190px;
+    height: 190px;
+   
+}
+
+.tr_img {
+    width: 90px;
+    height: 90px;
+    transform: scale(3) rotate(-135deg);
+}
+
+.br_img {
+        width: 90px;
+    height: 90px;
+    transform: scale(3) rotate(-45deg);
+}
+
+
+/* Hover effect */
+.br_img:hover {
+    transform: scale(4) rotate(-45deg);
+}
+
+
+.bordered_photo{
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+
+    align-items: center;
+    border: 1px red solid;
+    border-radius: 20px;
+}
+
+.full_bottom_photo{
+    
+    width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+
+    bottom: 0px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- Fixed Background -->
+<div class="background"></div>
+
+<!-- Sticky Photos -->
+<!-- <div class="photos bl_photos">
+    <img class="bl_img" src="cute-teddy-bear-removebg-preview.png">
+</div> -->
+
+<div class="photos br_photos">
+    <img class="br_img" src="cute-teddy-bear-removebg-preview.png">
+</div>
+
+<div class="photos tl_photos">
+    <img class="tl_img" src="heart-line.png">
+</div>
+
+<!-- <div class="photos tr_photos">
+    <img class="tr_img" src="cute-teddy-bear-removebg-preview.png">
+</div> -->
+
+
+<!-- Content -->
+<div class="container">
+
+    <div class="section active">
+        <div style="align-items: center; background-color: #c62727 ;padding:40px; border-radius: 20px;">
+             <p  class="valentine-cute" style="text-align: center;">Happy Valentine's Day,</p>
+              <p class="valentine-cute" style="text-align: center;">My Love</p>
+        </div>
+    </div>
+    <div class="section">
+   
+        <div>
+             <p class="valentine-cute" style="text-align: center;">You & Me forever</p>
+              <div >
+                <img class="bordered_photo" src="romantic-people-being-love.jpg">
+              </div>
+        </div>
+     
+
+    </div>
+    <div class="section">
+      <div>
+             <p class="valentine-cute" style="text-align: center;">To Many More Years of Us</p>
+              <div >
+                <img class="bordered_photo" src="couple-back.jpg">
+              </div>
+        </div>
+
+    </div>
+
+        <div class="section">
+
+              <div>
+             <p class="valentine-cute" style="text-align: center;">Oh! I brought Some Flowers T00!</p>
+                <!-- <div >
+                <img class="bordered_photo" style="border: 0; !important" src="down_arrow.png">
+              </div> -->
+              <div >
+ 
+              </div>
+        </div>
+
+    </div>
+
+
+    <div class="section">
+
+              <div>
+
+              <div >
+                <img class="full_bottom_photo" style="align-items: center;" src="close-up-woman-holding-flowers.jpg">
+              </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const sections = document.querySelectorAll('.section');
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        } else {
+            entry.target.classList.remove('active');
+        }
+
+    });
+
+}, {
+    threshold: 0.6
+});
+
+sections.forEach(section => {
+    observer.observe(section);
+});
+
+</script>
+
+</body>
+</html>
